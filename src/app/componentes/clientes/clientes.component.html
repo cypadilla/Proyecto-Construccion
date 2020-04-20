@@ -1,5 +1,5 @@
 <div *ngIf="clientes.length > 0; else noclientes">
-  <div class="card border-primary mb-3" >
+  <div class="card border-primary mb-6" >
     <div class="card-header">Clientes</div>
     <div class="card-body text-primary">
       <h5 class="card-title">Listado de clientes</h5>
@@ -10,7 +10,10 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
+            <th>Direccion</th>
             <th>Edad</th>
+            <th>Torre</th>
+            <th>Apartamento</th>
             <!--<th>Propietario</th>-->
           </tr>
         </thead>
@@ -20,7 +23,10 @@
             <td>{{cliente.nombre}}</td>
             <td>{{cliente.apellido}}</td>
             <td>{{cliente.email}}</td>
+            <td>{{cliente.direccion}}</td>
             <td>{{cliente.edad}}</td>
+            <td>{{cliente.torre}}</td>
+            <td>{{cliente.apartamento}}</td>
             <!--<td>{{cliente.propietario}}</td>-->
             <button (click)="eliminarCliente($event,cliente) " class="btn btn-danger">
               Eliminar Cliente

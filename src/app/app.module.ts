@@ -8,19 +8,28 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FormsModule } from '@angular/forms';
+import {RouterModule ,Routes} from '@angular/router';
 
+
+const routes: Routes = [
+  {path:'',redirectTo:'/home',pathMatch: 'full'},
+  {path:'cliente-formulario',component: ClienteFormularioComponent},
+  {path:'clientes',component:ClientesComponent},
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteFormularioComponent,
-    ClientesComponent
+    ClientesComponent,
+    
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

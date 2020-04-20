@@ -4,6 +4,9 @@ export interface Cliente{
   apellido?: string;
   edad?: number;
   email?: string;
+  direccion?:string;
   identificacion?: string;
-  propietario?:boolean;
+  propietario?:string;
+  torre?:string;
+  apartamento?:string;
 }
