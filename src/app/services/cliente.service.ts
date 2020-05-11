@@ -3,6 +3,11 @@ import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} f
 import {Cliente} from'../modelos/cliente';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {AngularFireAuth} from 'angularfire2/auth';
+import * as firebase from'firebase/app';
+import {Router} from '@angular/router';
+import { resolve } from 'url';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +16,7 @@ export class ClienteService {
   clienteDoc:AngularFirestoreDocument<Cliente>;
   clientes:Observable<Cliente[]>;
   clienteO =ClienteService;
-  constructor (public db: AngularFirestore) {
+  constructor (public db: AngularFirestore, private angularFireAuth:AngularFireAuth ) {
     //this.clientes = db.collection('clientes').valueChanges();
     this.clientesColeccion = this.db.collection('clientes');
     this.clientes = this.clientesColeccion.snapshotChanges().pipe(map(
@@ -23,18 +28,53 @@ export class ClienteService {
       })
 
     }));
+  }
+
+   registrarUsuario(){
+     return(new Promise((resolve,reject) => {
+       this.angularFireAuth.auth.createUserWithEmailAndPassword(email,pass)
+       .then(userData => resolve (userData),
+       err => reject(err))
+     }));
+   }
+
+   loginEmail(email:string, pass:string){
+      return (new Promise((resolve,reject) => {
+        this.angularFireAuth.auth.signInWithEmailAndPassword(email,pass)
+        .then(userData => resolve(userData),
+        err => reject(err))
+      }));
+      
+   }
+
+   logOut(){
+    return(this.angularFireAuth.auth.signOut());
+   }
+
+   loginFacebook(){
+    return (this.angularFireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()));
+   }
+
+   loginGoogle(){
+   return(this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
+   }
+   
+   autenticacion(){
+    return (this.angularFireAuth.authState.pipe(map(auth => auth)));
    }
 
    getClientes(){
      return(this.clientes);
    }
+
    addClientes(cliente: Cliente){
     this.clientesColeccion.add(cliente);
    }
-     deleteClientes(cliente: Cliente){
+
+  deleteClientes(cliente: Cliente){
       this.clienteDoc = this.db.doc(`clientes/${cliente.id}`);
       this.clienteDoc.delete();
-     }
+   }
 
    actualizarCliente(cliente: Cliente){
      this.clienteDoc = this.db.doc(`clientes/${cliente.id}`);

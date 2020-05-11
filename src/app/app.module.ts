@@ -10,12 +10,18 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FormsModule } from '@angular/forms';
 import {RouterModule ,Routes} from '@angular/router';
 import { LoginComponent } from "./componentes/login/login.component";
+import {AngularFireAuth} from 'angularfire2/auth';
+import { HomeComponent } from './componentes/home/home.component';
+import { NavbarComponent } from './componentes/navbar/navbar.component';
+ 
 
 const routes: Routes = [
-  {path:'',redirectTo:'/home',pathMatch: 'full'},
+  {path:  '',component:HomeComponent},
+  {path:'login',component:LoginComponent},
+  {path:'home',component:HomeComponent},
   {path:'cliente-formulario',component: ClienteFormularioComponent},
   {path:'clientes',component:ClientesComponent},
-  {path:'login',component:LoginComponent},
+  
 ]
 
 @NgModule({
@@ -24,6 +30,8 @@ const routes: Routes = [
     ClienteFormularioComponent,
     ClientesComponent,
     LoginComponent,
+    HomeComponent,
+    NavbarComponent,
 
   ],
   imports: [
@@ -33,7 +41,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

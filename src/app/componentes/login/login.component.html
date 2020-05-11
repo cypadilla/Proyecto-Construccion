@@ -1,15 +1,17 @@
 <div class="login-box">
 
-      <h1>Login Here</h1>
-      <form>
+      <h1>Login</h1>
+      <form (ngSubmit)="loginEmail()">
         <!-- USERNAME INPUT -->
-        <label for="username">Username</label>
-        <input type="text" placeholder="Enter Username">
+        <label for="username">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter Username" [(ngModel)]="email">
         <!-- PASSWORD INPUT -->
         <label for="password">Password</label>
-        <input type="password" placeholder="Enter Password">
+        <input type="password" id="password" name="password" placeholder="Enter Password" [(ngModel)]="pass">
         <input type="submit" value="Log In">
-        <a href="#">Lost your Password?</a><br>
-        <a href="#">Don't have An account?</a>
+        <input type="submit" class=" btn btn-block btn-facebook" value="Facebook " (click)="loginFacebook()">
+        <input type="submit" class="btn-social btn-google" value="Google" (click)="loginGoogle()">
+        <a href="#">Olvidaste tu Password?</a><br>
+        <a class="nav-link" routerLink ="/cliente-formulario">¿No tienes una cuenta?</a>
       </form>
     </div>
