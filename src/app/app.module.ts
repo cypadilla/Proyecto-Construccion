@@ -13,7 +13,8 @@ import { LoginComponent } from "./componentes/login/login.component";
 import {AngularFireAuth} from 'angularfire2/auth';
 import { HomeComponent } from './componentes/home/home.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
- 
+import { PerfilClienteComponent } from './componentes/perfil-cliente/perfil-cliente.component';
+import { AngularFireStorageModule} from 'angularfire2/storage';
 
 const routes: Routes = [
   {path:  '',component:HomeComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
     LoginComponent,
     HomeComponent,
     NavbarComponent,
+    PerfilClienteComponent,
 
   ],
   imports: [
@@ -39,6 +41,7 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     FormsModule,
+    AngularFireStorageModule,
     RouterModule.forRoot(routes)
   ],
   providers: [AngularFireAuth],

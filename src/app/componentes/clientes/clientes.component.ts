@@ -33,4 +33,4 @@ export class ClientesComponent implements OnInit {
     this.clienteEditar = {} as Cliente;
     this.editar = false; 
   }
-}
+} 

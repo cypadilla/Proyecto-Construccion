@@ -27,10 +27,6 @@
       <label for="direccion">Direccion</label>
       <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion.." [(ngModel)]="cliente.direccion">
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" name="email" class="form-control" id="email" placeholder="Email..."  [(ngModel)]="cliente.email">
-    </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="torre">Torre</label>
@@ -49,7 +45,30 @@
         </select>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" name="email" class="form-control" id="email" placeholder="Email..."  [(ngModel)]="cliente.email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" name="password" class="form-control" id="password" placeholder="Password..."  [(ngModel)]="cliente.password">
+    </div>
+    <div class="form-group">
+      <h5>Seleccionar imagen: </h5>
+      <input type="file" accept=".png, .jpg "(change)="subirImagen($event)">
+    </div> 
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped bg-success " role="progressbar"
+       [style.width]="(porcentajeBarraProgreso | async) +'%'">
+       
+      </div>
+    </div>
+    <br>
+    <input #imagenUrl type="hidden" [value]="urlImagen | async" >
+    <button *ngIf="urlImagen | async; else btnDesabilitado" type="submit" class="btn btn-primary">Guardar</button>
+    <ng-template #btnDesabilitado >
+      <button type="submit" disabled="true" class="btn btn-dark">Guardar</button>
+    </ng-template>
   </form>
 <!--</form>
 <form (ngSubmit)="addClientes()">

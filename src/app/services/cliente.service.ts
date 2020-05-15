@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} from 'angularfire2/firestore';
 import {Cliente} from'../modelos/cliente';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from'firebase/app';
 import {Router} from '@angular/router';
 import { resolve } from 'url';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,13 @@ export class ClienteService {
   clienteDoc:AngularFirestoreDocument<Cliente>;
   clientes:Observable<Cliente[]>;
   clienteO =ClienteService;
-  constructor (public db: AngularFirestore, private angularFireAuth:AngularFireAuth ) {
+  constructor (
+    public db: AngularFirestore,
+     private angularFireAuth:AngularFireAuth
+     )
+    {
     //this.clientes = db.collection('clientes').valueChanges();
+  
     this.clientesColeccion = this.db.collection('clientes');
     this.clientes = this.clientesColeccion.snapshotChanges().pipe(map(
       actions => {
@@ -30,7 +36,7 @@ export class ClienteService {
     }));
   }
 
-   registrarUsuario(){
+   registrarUsuario(email: string, pass: string){
      return(new Promise((resolve,reject) => {
        this.angularFireAuth.auth.createUserWithEmailAndPassword(email,pass)
        .then(userData => resolve (userData),
@@ -68,14 +74,27 @@ export class ClienteService {
    }
 
    addClientes(cliente: Cliente){
-    this.clientesColeccion.add(cliente);
+    return(new Promise((resolve,reject) => {
+      this.clientesColeccion.add(cliente)
+      .then(userData => resolve (userData),
+      err => reject(err))
+    }));
+    //this.actualizarCliente(cliente);
    }
 
   deleteClientes(cliente: Cliente){
       this.clienteDoc = this.db.doc(`clientes/${cliente.id}`);
       this.clienteDoc.delete();
    }
-
+   actualizarDatosInicio(cliente: Cliente){
+    this.clienteDoc = this.db.doc(`clientes/${cliente.id}`);
+    const datos = {
+      email : cliente.email,
+      photoURL : cliente.photoURL,
+      displayName : cliente.displayName
+    };
+    this.clienteDoc.set(datos);
+   }
    actualizarCliente(cliente: Cliente){
      this.clienteDoc = this.db.doc(`clientes/${cliente.id}`);
      this.clienteDoc.update(cliente);
