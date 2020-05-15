@@ -29,8 +29,7 @@ export class ClienteFormularioComponent implements OnInit {
     private angularFireAuth: AngularFireAuth,
     private angularFireStorage: AngularFireStorage
     ) { }
-    //@ViewChild('imagenUrl');
-     //inputImageUser: ElementRef;
+    @ViewChild('imagenUrl',{static:true}) inputImageUser: ElementRef;
   
   ngOnInit() {
   }
@@ -61,11 +60,13 @@ export class ClienteFormularioComponent implements OnInit {
       this.clienteService.autenticacion().subscribe(estado =>{
         if(estado){
           estado.updateProfile({
-           // photoURL
-          })
+           photoURL:this.inputImageUser.nativeElement.value
+          }).then(()=>{
+            if(res){console.log("Usuario Creado correctamente")}
+            this.router.navigate(['profileCliente']);
+          }).catch((error)=>console.log('error',error.message));
         }
-      })
-      if(res){console.log("Usuario Creado correctamente")}
+      });     
     }).catch((error)=>{console.error(error)});
 
     this.clienteService.registrarUsuario(this.cliente.email,this.cliente.password)
