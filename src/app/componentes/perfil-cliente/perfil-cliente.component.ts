@@ -24,7 +24,7 @@ export class PerfilClienteComponent implements OnInit {
         this.cliente.email = usuario.email;
         this.cliente.photoURL = usuario.photoURL;
         this.providerId = usuario.providerData[0].providerId;
-        console.log ('Usuario recuperado ',usuario);
+        console.log ('Usuario recuperado ',usuario);  
         console.log('User',this.cliente); 
       }
     });

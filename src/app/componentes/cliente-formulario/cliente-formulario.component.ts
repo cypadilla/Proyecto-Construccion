@@ -16,19 +16,18 @@ import { Observable, pipe } from 'rxjs';
 export class ClienteFormularioComponent implements OnInit {
   
   cliente = {} as Cliente;
-  
- 
- 
-  
-  porcentajeBarraProgreso: Observable<number>;
-  urlImagen: Observable<number>; 
 
   constructor(
     public clienteService: ClienteService,
     private router: Router,
     private angularFireAuth: AngularFireAuth,
     private angularFireStorage: AngularFireStorage
-    ) { }
+  ) { }
+
+    porcentajeBarraProgreso: Observable<number>;
+    urlImagen: Observable<string>; 
+
+
     @ViewChild('imagenUrl',{static:true}) inputImageUser: ElementRef;
   
   ngOnInit() {
@@ -50,8 +49,7 @@ export class ClienteFormularioComponent implements OnInit {
     const task = this.angularFireStorage.upload(filePath,file)
     console.log("evento",event.target.files[0]);
     this.porcentajeBarraProgreso = task.percentageChanges();
-    task.snapshotChanges().pipe( finalize(()=>
-     this.urlImagen = ref.getDownloadURL())).subscribe();
+    task.snapshotChanges().pipe( finalize(()=> this.urlImagen = ref.getDownloadURL())).subscribe();
     
   }
   addClientes(){

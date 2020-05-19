@@ -15,6 +15,7 @@ import { HomeComponent } from './componentes/home/home.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { PerfilClienteComponent } from './componentes/perfil-cliente/perfil-cliente.component';
 import { AngularFireStorageModule} from 'angularfire2/storage';
+import { ChatComponent } from './componentes/chat/chat.component';
 
 const routes: Routes = [
   {path:  '',component:HomeComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path:'cliente-formulario',component: ClienteFormularioComponent},
   {path:'clientes',component:ClientesComponent},
   {path:'perfilCliente',component:PerfilClienteComponent},
+  {path:'chat',component:ChatComponent},
 ]
 
 @NgModule({
@@ -34,6 +36,7 @@ const routes: Routes = [
     HomeComponent,
     NavbarComponent,
     PerfilClienteComponent,
+    ChatComponent,
 
   ],
   imports: [

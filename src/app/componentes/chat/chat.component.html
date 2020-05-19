@@ -1,0 +1,36 @@
+<div class="container main-container">
+    <h1>Foro Intranet</h1>
+    <div class="chat-window">
+        <h1>Chat prueba - no olvidar cambiarlo </h1>
+        <hr>
+        <div class="app-mensajes" id="app-mensajes">
+            <div class="text-right" *ngFor="let mensaje of mensajes">
+                <span class="badge badge-primary">Cristian</span> 
+                    <p>
+                      {{mensaje.mensaje}}
+                    </p>
+            </div>
+            <!--
+             <div class="text-right">
+                <span class="badge badge-primary">Cristian</span> 
+                    <p>
+                      Mensaje de prueba
+                    </p>
+            </div>
+            <div>
+               <span class="badge badge-success">Diego</span> 
+                    <p>
+                       Mensaje de prueba Diego
+                    </p>
+            </div>       
+          -->
+                           
+        </div>
+         <input  type="text" name="mensaje"
+            class="form-control"
+            [(ngModel)]="mensaje"
+            (keyup.enter)="enviarMensaje()"
+            placeholder="Enviar Mensaje">  
+    </div>
+         
+</div>
