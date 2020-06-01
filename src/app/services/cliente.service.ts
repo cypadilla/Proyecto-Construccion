@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import { resolve } from 'url';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,7 @@ export class ClienteService {
   clientesColeccion:AngularFirestoreCollection<Cliente>;
   clienteDoc:AngularFirestoreDocument<Cliente>;
   clientes:Observable<Cliente[]>;
+  clienteRecuperado: Cliente; 
   clienteO =ClienteService;
   constructor (
     public db: AngularFirestore,
@@ -62,7 +64,7 @@ export class ClienteService {
    }
 
    loginGoogle(){
-   return(this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
+    return(this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
    }
    
    autenticacion(){
@@ -72,6 +74,10 @@ export class ClienteService {
    getClientes(){
      return(this.clientes);
    }
+   getCliente(client: Cliente){
+    this.clienteRecuperado=null;
+   }
+
 
    addClientes(cliente: Cliente){
     return(new Promise((resolve,reject) => {

@@ -12,7 +12,9 @@ export class PerfilClienteComponent implements OnInit {
   constructor( private clienteService : ClienteService) { }
  
   public providerId: string = 'null';
-
+  private editarCliente : boolean = false; 
+  private clienteEdit ={} as Cliente;
+  private clienteRecuperado ={} as Cliente; 
   cliente : Cliente = {
     email: '',
     photoURL: '',
@@ -28,7 +30,22 @@ export class PerfilClienteComponent implements OnInit {
         console.log('User',this.cliente); 
       }
     });
-    this.cliente
+  }
+
+  agregarDatos(){
+    this.editarCliente=!this.editarCliente; 
+  }
+  addClientes(){
+    this.clienteService.addClientes(this.clienteEdit)
+    .then((respuesta)=>{
+      console.log("usuario creaado desde perfil",respuesta)
+      this.editarCliente=false;
+    }).catch((err)=>{
+      console.log("error",err)
+    });
+  }
+  getCliente(){
+    
   }
 
 }

@@ -7,12 +7,10 @@
       <li class="nav-item "routerLinkActive="active" *ngIf="isLogged">
         <a class="nav-link" routerLink ="/clientes">Clientes</a>
       </li>
-      <li class="nav-item "routerLinkActive="active" >
+      <li class="nav-item "routerLinkActive="active" *ngIf="isLogged" >
         <a class="nav-link" routerLink ="/chat">Foro</a>
       </li>
-      <li class="nav-item " routerLinkActive="active" *ngIf="isLogged" >
-        <a class="nav-link" href="#" (click)="logOut()">Cerrar Sesion</a>  
-      </li>
+      
     </ul>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
@@ -27,8 +25,8 @@
           <li class="nav-item "routerLinkActive="active" *ngIf="isLogged">
         <a class="nav-link" routerLink ="/perfilCliente">Perfil</a>
       </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+        <li class="nav-item " routerLinkActive="active" *ngIf="isLogged" >
+          <a class="nav-link" href="#" (click)="logOut()">Cerrar Sesion</a>  
         </li>
       </ul>
       LOGGED:{{isLogged}}

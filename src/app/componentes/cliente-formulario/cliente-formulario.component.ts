@@ -52,6 +52,7 @@ export class ClienteFormularioComponent implements OnInit {
     task.snapshotChanges().pipe( finalize(()=> this.urlImagen = ref.getDownloadURL())).subscribe();
     
   }
+  
   addClientes(){
     this.clienteService.addClientes(this.cliente)
     .then((res)=>{
@@ -70,7 +71,7 @@ export class ClienteFormularioComponent implements OnInit {
     this.clienteService.registrarUsuario(this.cliente.email,this.cliente.password)
     .then((res)=>{
       if(res){console.log("Usuario registrado correctamente")}
-    }).catch((error)=>{console.error(error)});  
+    }).catch((error)=>{console.error('error registro',error)});  
     //this.actualizarDatosInicio()
     console.log(this.cliente);
     this.cliente ={} as Cliente;

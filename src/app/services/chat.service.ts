@@ -31,7 +31,7 @@ export class ChatService {
 
   cargarMensajes(){
     this.chatsCollection = this.angularFireStore.collection<Mensaje>('chats', ref => ref.orderBy('fecha','asc').limit(100));
-    
+    //db.collection("app").document("users").collection(uid).document("notifications")
     return (this.chatsCollection.valueChanges(map((mensajes:Mensaje[]) => {
       console.log('mensajes',mensajes);
       this.chats =[];
@@ -44,9 +44,10 @@ export class ChatService {
 
   agregarMensaje(texto: string){
     let mensaje :Mensaje = {
-      nombre:'CristianPrueba',
+      nombre:this.usuario.nombre,
       mensaje:texto,
-      fecha: new Date().getTime()
+      fecha: new Date().getTime(),
+      uid: this.usuario.uid
     }
     return (this.chatsCollection.add(mensaje));
   }

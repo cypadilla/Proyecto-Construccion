@@ -11,15 +11,25 @@ export class ChatComponent implements OnInit {
   mensajes=[];
   mensaje :string =" "; 
   elemento:any; 
+  userinter :any = {};
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService,
+              private clienteService : ClienteService) {
+
+
+    this.clienteService.autenticacion().subscribe((user)=>{
+    this.userinter = user;
+    console.log('usuario traido',this.userinter.uid)
+    });            
    this.chatService.cargarMensajes().subscribe((mensajes)=>{
-     console.log('menssaddddddaaaaaaaaaaaaaaaaaaaaaaaaaaa', mensajes);
+     console.log('mensajes', mensajes);
      setTimeout(()=>{
       this.elemento.scrollTop = this.elemento.scrollHeight;
      },20)
      this.mensajes = mensajes;
-   })
+   });
+
+   
    }
 
   ngOnInit() {

@@ -4,8 +4,12 @@
         <h1>Chat prueba - no olvidar cambiarlo </h1>
         <hr>
         <div class="app-mensajes" id="app-mensajes">
-            <div class="text-right" *ngFor="let mensaje of mensajes">
-                <span class="badge badge-primary">Cristian</span> 
+            <div *ngFor="let mensaje of mensajes"
+                  [ngClass]="{'text-right': userinter.uid == mensaje.uid}">
+                <span class="badge"
+                      [ngClass]="{'badge-primary': userinter.uid == mensaje.uid,
+                                  'badge-success': userinter.uid != mensaje.uid}">
+                       {{mensaje.nombre}}</span> 
                     <p>
                       {{mensaje.mensaje}}
                     </p>

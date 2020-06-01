@@ -25,6 +25,7 @@ export class ClientesComponent implements OnInit {
 
   editarCliente($event,cliente){
     this.clienteEditar = cliente;
+    console.log("id cliente",cliente.id)
     this.editar=!this.editar;
   }
 
