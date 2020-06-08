@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: aliceblue;
+  }
+
+  .registro-box {
+    width: 600px;
+    background: #24303c;
+    padding: 30px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 4px;
+    font-family: 'calibri';
+    color: whitesmoke;
+    box-shadow: 7px 13px 37px #000;
+  }
+
+  .registro-box .btn {
+    width: 40%;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #1f53c5;
+    border: none;
+    padding: 12px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: auto;
+    font-size: 16px;
+  }

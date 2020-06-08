@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} from 'angularfire2/firestore';
-import {Cliente} from'../modelos/cliente';
+import {Cliente,Contacto} from'../modelos/cliente';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from'firebase/app';
 import {Router} from '@angular/router';
 import { resolve } from 'url';
+import { unescapeIdentifier } from '@angular/compiler';
 
 
 
@@ -14,11 +15,14 @@ import { resolve } from 'url';
   providedIn: 'root'
 })
 export class ClienteService {
+  clienteRec:any;
+  contactoColeccion:AngularFirestoreCollection<Contacto>;
   clientesColeccion:AngularFirestoreCollection<Cliente>;
   clienteDoc:AngularFirestoreDocument<Cliente>;
   clientes:Observable<Cliente[]>;
   clienteRecuperado: Cliente; 
   clienteO =ClienteService;
+
   constructor (
     public db: AngularFirestore,
      private angularFireAuth:AngularFireAuth
@@ -41,8 +45,9 @@ export class ClienteService {
    registrarUsuario(email: string, pass: string){
      return(new Promise((resolve,reject) => {
        this.angularFireAuth.auth.createUserWithEmailAndPassword(email,pass)
-       .then(userData => resolve (userData),
-       err => reject(err))
+       .then(userData => {
+         resolve (userData)
+        }).catch(err => reject(err)) 
      }));
    }
 
@@ -60,11 +65,13 @@ export class ClienteService {
    }
 
    loginFacebook(){
-    return (this.angularFireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()));
+    return (this.angularFireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()))
+    .then((user)=>this.updateUserDatarRedes(user.user));
    }
 
    loginGoogle(){
-    return(this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
+    return(this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
+    .then((user)=>this.updateUserDatarRedes(user.user));
    }
    
    autenticacion(){
@@ -77,11 +84,12 @@ export class ClienteService {
    getCliente(client: Cliente){
     this.clienteRecuperado=null;
    }
+  fsdf(){}
 
-
-   addClientes(cliente: Cliente){
+    addClientes(cliente: Cliente){
     return(new Promise((resolve,reject) => {
-      this.clientesColeccion.add(cliente)
+      console.log('addd cliente',cliente)
+     this.clientesColeccion.add(cliente)
       .then(userData => resolve (userData),
       err => reject(err))
     }));
@@ -105,5 +113,22 @@ export class ClienteService {
      this.clienteDoc = this.db.doc(`clientes/${cliente.id}`);
      this.clienteDoc.update(cliente);
    }
+   private updateUserDatarRedes(user) {
+    const userRef: AngularFirestoreDocument<any> = this.db.doc(`clientes/${user.uid}`);
+    const data: Cliente = {
+      id: user.uid,
+      nombre:user.displayName,
+      email: user.email,
+      roles: {
+        admin: true
+      }
+    }
+    
+    return userRef.set(data, { merge: true })
+  }
 
+  añadirContacto(contacto:Contacto){
+    this.contactoColeccion= this.db.collection('contacto');
+    this.contactoColeccion.add(contacto)
+  }
 }

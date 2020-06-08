@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
-import { Cliente } from '../../modelos/cliente'
+import { Cliente,Roles } from '../../modelos/cliente'
 import {NgForm} from '@angular/forms'
 import {Router} from '@angular/router';
 import {AngularFireAuth} from'angularfire2/auth';
@@ -14,9 +14,11 @@ import { Observable, pipe } from 'rxjs';
   styleUrls: ['./cliente-formulario.component.css']
 })
 export class ClienteFormularioComponent implements OnInit {
-  
+  roles={}as Roles;
   cliente = {} as Cliente;
-
+  nombreUsuario :string ="pepito"; 
+  id_usuario:any;
+  id_user:string="";
   constructor(
     public clienteService: ClienteService,
     private router: Router,
@@ -54,24 +56,55 @@ export class ClienteFormularioComponent implements OnInit {
   }
   
   addClientes(){
+
+    this.clienteService.registrarUsuario(this.cliente.email,this.cliente.password)
+    .then((res)=>{
+      console.log('USUARIO',res)
+      if(res){console.log("Usuario registrado correctamente")}
+    }).catch((error)=>{console.error('error registro',error)}); 
+    console.log('nombre usuario',this.cliente.displayName)
+    let rol:Roles;
+    if(this.roles.admin==true&&this.roles.residente==true){
+      rol={
+        admin:true,
+        residente:true
+      }
+    }
+    if(this.roles.residente==false&&this.roles.admin==false){
+      rol={
+        residente:false,
+        admin:false,
+      }
+    }
+    if(this.roles.residente==false&&this.roles.admin==true){
+      rol={
+        residente:false,
+        admin:true,
+      }
+    }
+    if(this.roles.residente==true&&this.roles.admin==false){
+      rol={
+        residente:true,
+        admin:false,
+      }
+    }
+    this.cliente.roles=rol;
     this.clienteService.addClientes(this.cliente)
     .then((res)=>{
       this.clienteService.autenticacion().subscribe(estado =>{
         if(estado){
           estado.updateProfile({
-           photoURL:this.inputImageUser.nativeElement.value
+           photoURL:this.inputImageUser.nativeElement.value,
+           displayName:this.nombreUsuario
           }).then(()=>{
-            if(res){console.log("Usuario Creado correctamente")}
-            this.router.navigate(['profileCliente']);
+            if(res){console.log("Usuario Creado correctamente",estado)}
+            this.router.navigate(['perfilCliente']);
           }).catch((error)=>console.log('error',error.message));
         }
       });     
     }).catch((error)=>{console.error(error)});
 
-    this.clienteService.registrarUsuario(this.cliente.email,this.cliente.password)
-    .then((res)=>{
-      if(res){console.log("Usuario registrado correctamente")}
-    }).catch((error)=>{console.error('error registro',error)});  
+     
     //this.actualizarDatosInicio()
     console.log(this.cliente);
     this.cliente ={} as Cliente;

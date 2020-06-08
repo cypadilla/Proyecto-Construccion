@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ClienteService } from '../../services/cliente.service';
+import {Router} from '@angular/router';
+import { MensajeForo } from '../../modelos/mensaje';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -8,13 +11,19 @@ import { ClienteService } from '../../services/cliente.service';
 })
 export class ChatComponent implements OnInit {
   
+  mensajeForo :MensajeForo;
+  msg: string=" ";
+  foro :any;
+  mensajesForo=[];
+  estadoChat:boolean = false;
   mensajes=[];
   mensaje :string =" "; 
   elemento:any; 
   userinter :any = {};
 
   constructor(private chatService: ChatService,
-              private clienteService : ClienteService) {
+              private clienteService : ClienteService,
+              private router: Router) {
 
 
     this.clienteService.autenticacion().subscribe((user)=>{
@@ -34,6 +43,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.elemento = document.getElementById('app-mensajes');
+    
   }
 
   enviarMensaje(){
@@ -51,4 +61,6 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  
+ 
 }

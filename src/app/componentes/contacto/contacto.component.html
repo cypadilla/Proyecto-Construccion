@@ -1,0 +1,27 @@
+<section class="form-register">
+    <h4>Contactanos</h4>
+    <form (ngSubmit)="Contacto()"> 
+      <div class="form-group col-md-12">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" class="controls" id="nombre" placeholder="Ingrese su nombre..."  [(ngModel)]="contacto.nombre">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="telefono">telefono</label>
+        <input type="text" name="telefono" class="controls" id="telefono" placeholder="Ingrese su telefono..."  [(ngModel)]="contacto.telefono">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="email">Email</label>
+        <input type="text" name="email" class="controls" id="email" placeholder="Ingrese su email..."  [(ngModel)]="contacto.email">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="asunto">Asunto</label>
+        <input type="text" name="asunto" class="controls" id="asunto" placeholder="Ingrese su asunto..."  [(ngModel)]="contacto.asunto">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="mensaje">Mensaje</label>
+        <textarea type="text" name="mensaje" class="controls" id="mensaje" placeholder="Ingrese su mensaje..."  [(ngModel)]="contacto.mensaje"></textarea>
+      </div>
+      <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+      <button type="submit"  class="botons">Enviar</button>
+    </form>
+</section>

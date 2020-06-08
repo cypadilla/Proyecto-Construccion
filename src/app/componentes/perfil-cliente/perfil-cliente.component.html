@@ -13,9 +13,11 @@
               {{cliente.email}}
               {{clienteRecuperado.torre}}
             </p>
-            <button (click)="agregarDatos()" class= "btn btn-success">
+            <!--<button (click)="agregarDatos()" class= "btn btn-success">
               Agregar Datos
             </button>
+          -->
+            <hr>
             <div *ngIf="editarCliente">
               <form (ngSubmit)="addClientes()">
                 <div class="form-row">
@@ -53,14 +55,6 @@
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-md-12 center" >
-                    <label for="propietario">Propietario/Arrendatario</label>
-                    <select id="propietario" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>propietario</option>
-                      <option>Arrendatario</option>
-                    </select>
-                  </div>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Guardar</button>

@@ -15,19 +15,17 @@ export class PerfilClienteComponent implements OnInit {
   private editarCliente : boolean = false; 
   private clienteEdit ={} as Cliente;
   private clienteRecuperado ={} as Cliente; 
-  cliente : Cliente = {
-    email: '',
-    photoURL: '',
-  };
+  cliente : Cliente = {};
   ngOnInit() {
     this.clienteService.autenticacion().subscribe( usuario => {
       if(usuario){
         this.cliente.displayName  = usuario.displayName; 
         this.cliente.email = usuario.email;
         this.cliente.photoURL = usuario.photoURL;
+        this.cliente.id= usuario.uid;
         this.providerId = usuario.providerData[0].providerId;
         console.log ('Usuario recuperado ',usuario);  
-        console.log('User',this.cliente); 
+        console.log('User',this.providerId); 
       }
     });
   }
@@ -36,16 +34,18 @@ export class PerfilClienteComponent implements OnInit {
     this.editarCliente=!this.editarCliente; 
   }
   addClientes(){
-    this.clienteService.addClientes(this.clienteEdit)
+   /* this.clienteService.addClientes(this.clienteEdit)
     .then((respuesta)=>{
       console.log("usuario creaado desde perfil",respuesta)
       this.editarCliente=false;
     }).catch((err)=>{
       console.log("error",err)
     });
+    */
   }
-  getCliente(){
-    
-  }
+  /*consultaCliente(){
+    console.log(this.cliente.id)
+    this.clienteService.consultaCliente(this.cliente.id)
+  }*/
 
 }

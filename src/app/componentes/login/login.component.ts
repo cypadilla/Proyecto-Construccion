@@ -58,11 +58,11 @@ export class LoginComponent implements OnInit {
     //this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
   redireccionLogin(){
-    this.router.navigate(['home']);
+    this.router.navigate(['perfilCliente']);
   }
   logOut(){
     this.clienteService.logOut();
-    this.redireccionLogin();
+    this.router.navigate(['home']);
   }
   
  

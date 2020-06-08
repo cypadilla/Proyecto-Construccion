@@ -1,0 +1,24 @@
+<div class="container" *ngIf="estadoChat==true" >
+    <br>
+    <h1>{{foro.nombre}} </h1>
+    <p>Descripcion: {{foro.descripcion}}</p>
+
+  <div class="card" *ngFor="let mensaje of foro.mensajes">
+    <div class="card-header"  text-white style="background-color:#1349CF">
+      {{mensaje.nombreUsuario}}
+    </div>
+    <div class="card-body">
+      <p class="card-text"> {{mensaje.contenido}}</p>
+    </div>
+  </div>
+  <hr>
+  <div>
+    <input type="text"name="mensajeForo"
+    class="form-control"
+    [(ngModel)]="msg"
+    (keyup.enter)="enviarMensajeForo()"
+    placeholder="Enviar Mensaje"> 
+  </div>
+  <br>
+  <br>
+</div>  

@@ -1,6 +1,17 @@
-<div class="container">
-    <div>
-        <h1>Elija su foro porfavor</h1>
-        
-    </div>
+<div>
+    <hr>
+    <h1>ESCOJA SU FORO PORFAVOR !!</h1>
+    <hr>
+    <div class="list-group" *ngFor="let chat of foros" >
+      <div>
+        <a class="list-group-item list-group-item-action active" (click)="ingresarForo(chat)">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{chat.nombre}}</h5>
+            <small>aqui va la fecha</small>
+          </div>
+          <p class="mb-1">{{chat.descripcion}}</p>
+        </a> 
+      </div>
+      <hr>
+   </div>
 </div>

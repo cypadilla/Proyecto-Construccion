@@ -1,4 +1,6 @@
 <div class="registro-box">
+  <h4>Registro</h4> 
+  <br>
   <form (ngSubmit)="addClientes()">
     <div class="form-row">
       <div class="form-group col-md-6">
@@ -25,22 +27,39 @@
       <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion.." [(ngModel)]="cliente.direccion">
     </div>
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-6">
         <label for="torre">Torre</label>
         <input type="number" class="form-control" id="torre" name="torre" [(ngModel)]="cliente.torre">
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-6">
         <label for="apartamento">Apartamento</label>
         <input type="number" class="form-control" id="apartamento" name="apartamento" [(ngModel)]="cliente.apartamento">
       </div>
-      <div class="form-group col-md-4">
-        <label for="propietario">Propietario/Arrendatario</label>
-        <select id="propietario" class="form-control">
-          <option selected>Choose...</option>
-          <option>propietario</option>
-          <option>Arrendatario</option>
-        </select>
+    </div>
+    <div>
+      <label for="administrador">¿Es usted administrador?</label>
+      <div>
+        <div class="radio">
+          <label  class="radio-inline"><input type="radio" name="administrador" [(ngModel)]="roles.admin" [value]="true"> Si </label>
+        </div>
+        <div class="radio">
+          <label  class="radio-inline"><input type="radio" name="administrador" [(ngModel)]="roles.admin" [value]="false"> No </label>
+        </div>
       </div>
+    </div>
+    <div class="form-group">
+      <label >¿Es usted Residente?</label>
+      <div class="radio">
+        <label  class="radio-inline"><input type="radio" name="residente" [(ngModel)]="roles.residente" [value]="true"> Si </label>
+      </div> 
+      <div class="radio">
+        <label  class="radio-inline"><input type="radio" name="residente" [(ngModel)]="roles.residente" [value]="false"> No </label>
+      </div>   
+    </div>
+    
+    <div class="form-group">
+      <label for="displayName">Nombre de usuario</label>
+      <input type="text" name="displayName" class="form-control" id="displayName" placeholder="Nombre de usuario"  [(ngModel)]="nombreUsuario">
     </div>
     <div class="form-group">
       <label for="email">Email</label>

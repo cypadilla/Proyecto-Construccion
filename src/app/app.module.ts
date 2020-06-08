@@ -16,15 +16,24 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { PerfilClienteComponent } from './componentes/perfil-cliente/perfil-cliente.component';
 import { AngularFireStorageModule} from 'angularfire2/storage';
 import { ChatComponent } from './componentes/chat/chat.component';
+import { ForoComponent } from './componentes/foro/foro.component';
+import { ListaForoComponent } from './componentes/lista-foro/lista-foro.component';
+import { ModalComponent } from './componentes/modal/modal.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ContactoComponent } from './componentes/contacto/contacto.component';
+
 
 const routes: Routes = [
-  {path:  '',component:HomeComponent},
+  {path: '',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'home',component:HomeComponent},
   {path:'cliente-formulario',component: ClienteFormularioComponent},
   {path:'clientes',component:ClientesComponent},
   {path:'perfilCliente',component:PerfilClienteComponent},
   {path:'chat',component:ChatComponent},
+  {path: 'foro/:id',component:ForoComponent},
+  {path: 'listaForos',component:ListaForoComponent},
+  {path: 'contacto',component:ContactoComponent}
 ]
 
 @NgModule({
@@ -37,6 +46,10 @@ const routes: Routes = [
     NavbarComponent,
     PerfilClienteComponent,
     ChatComponent,
+    ForoComponent,
+    ListaForoComponent,
+    ModalComponent,
+    ContactoComponent,
 
   ],
   imports: [
@@ -45,7 +58,8 @@ const routes: Routes = [
     AngularFirestoreModule,
     FormsModule,
     AngularFireStorageModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgbModule
   ],
   providers: [AngularFireAuth],
   bootstrap: [AppComponent]
